@@ -1,7 +1,9 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Collections;
 
 //Mai trebuie implementate hashmap,treemap etc.
@@ -49,12 +51,21 @@ public class Main
                 sflista.add(new Student(nrMatricol,formatie,nume,prenume,Prezent));
             }
             Collections.sort(sflista);
-            for(Student studenti:sflista)
-            {
+            for(Student studenti:sflista) {
                 System.out.println(studenti);
+
+            }
+            FileWriter output = new FileWriter("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Output");
+
+            for (Student student : sflista) {
+                System.out.println(student);
+
+                output.write(student.getNume() + " " + student.getFormatie() + "\n");
             }
 
-        } catch (FileNotFoundException e) {
+            output.close();
+            System.out.println("Date scrise in fisier cu succes!");
+        } catch (IOException e) {
             System.out.println("Fisierul nu a fost gasit: " + e.getMessage());
         }
     }

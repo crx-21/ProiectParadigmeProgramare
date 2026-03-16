@@ -49,4 +49,16 @@ public class Student implements Comparable<Student> {
 
         return this.prenume.compareTo(other.prenume);
     }
+    String getNume()
+    {
+        return this.nume;
+    }
+    String getPrenume()
+    {
+        return this.prenume;
+    }
+    Integer getFormatie()
+    {
+        return this.formatie;
+    }
 }
