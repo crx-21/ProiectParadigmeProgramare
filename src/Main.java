@@ -1,15 +1,12 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Collections;
 
-//Mai trebuie implementate hashmap,treemap etc.
-//Lab3 Tema:sortare in functie de grupa si dupa nume (daca doi elevi au acelasi nume si aceeasi grupa sa ii sorteze dupa nume)
-//Lab4 Prima parte: Citim nume si dam numere asociate numelor. Citim fisier in hashmap, apoi dam ca input un student si sa ii returneze nota. Generam metoda de .equals si hashcode
+//Implementate: Lab4 Prima parte: Citim nume si dam numere asociate numelor. Citim fisier in hashmap. Lab3 Tema:sortare in functie de grupa si dupa nume!!!, HashMap, TreeMap care trebuiau, Merge ParsareDate acum, nu mai am randuri multe goale din cauza scannerului.
+
+//Mai trebuie implementate: Generam metoda de .equals si hashcode
 
 public class Main
 {
@@ -25,7 +22,15 @@ public class Main
         slista.add(s1);
         slista.add(s2);
 
-        //HashMap<Integer,String> StudentiNumere=new HashMap<>();
+        TreeMap<String,Student> tMapLista=new TreeMap<>();
+
+        tMapLista.put("Cel destept",s);
+        tMapLista.put("Cel mai putin destept",s1);
+        tMapLista.put("Cel mai destept dintre destepti",s2);
+
+       //System.out.println(tMapLista.get("Cel mai destept dintre destepti"));
+
+        //HashMap<Integer,String> StudentiNumere=new HashMap<>(); //Prima Parte HashMap
         HashMap<Integer, String> StudentiNote=new HashMap<>();
         HashMap<String, Integer> StudentiMatricol=new HashMap<>();
 
@@ -33,8 +38,9 @@ public class Main
         {
             System.out.println(x);
         }
-/*      //Am scos prezenta ca e destul de annoying, cere input mereu de la tastatura.
-        System.out.println("Prezenta: ");
+        System.out.println("   !!!Sfarsit prima lista din program!!!");
+      //Am scos prezenta ca e destul de annoying, cere input mereu de la tastatura.
+      /*  System.out.println("Prezenta: ");
         for(Student x:slista)
         {
             String numeCautat=sc.nextLine();
@@ -46,25 +52,24 @@ public class Main
             Scanner scf=new Scanner(new File("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Input"));
             while(scf.hasNextLine())
             {
-                Integer nrMatricol = scf.nextInt();
-                Integer formatie = scf.nextInt();
-                String nume= scf.next();
-                String prenume= scf.next();
-                boolean Prezent = scf.nextBoolean();
-                if (sc.nextLine().contains("mere")) System.out.println("Am gasit mere!");
-                sflista.add(new Student(nrMatricol,formatie,nume,prenume,Prezent));
-                StudentiMatricol.put(nume,nrMatricol);
+
+                String linie = scf.nextLine();
+                if (linie.isEmpty()) continue;
+                if (linie.contains("mere")) System.out.println("Am gasit mere!");
+
+                Student student = Student.ParsareDate(linie); // ParsareDate
+                sflista.add(student);
+                StudentiMatricol.put(student.getNume(), student.nrMatricol);
             }
             Collections.sort(sflista);
             for(Student studenti:sflista) {
                 System.out.println(studenti);
 
             }
+            System.out.println("   !!!Sfarsit a doua lista din program (Collections.sort)!!!");
             FileWriter output = new FileWriter("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Output");
 
             for (Student student : sflista) {
-                System.out.println(student);
-
                 output.write(student.getNume() + " " + student.getFormatie() + "\n");
             }
 
@@ -89,8 +94,8 @@ public class Main
                 Integer Nota= scf2.nextInt();
                 StudentiNote.put(nrMatricol,Nota.toString());
             }
-            System.out.println(StudentiNote);
-            System.out.println(StudentiMatricol);
+            System.out.println(StudentiNote); //Afisate pentru cautare usoara
+            System.out.println(StudentiMatricol); //Afisate pentru cautare usoara
             String numeDeCautatNota= "";
             System.out.print("Cauta un nume ca sa aflii nota: ");
             numeDeCautatNota=sc.nextLine();

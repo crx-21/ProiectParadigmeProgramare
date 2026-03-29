@@ -1,8 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 public class Student implements Comparable<Student> {
     Integer nrMatricol;
     Integer formatie;
@@ -24,30 +19,37 @@ public class Student implements Comparable<Student> {
         return nrMatricol + "," + formatie + "," + nume + "," + prenume;
     }
 
-    String ParsareDate()
+   static Student ParsareDate(String linie)
     {
-        return toString();
+        String[] parts = linie.split(",");
+        return new Student(
+                Integer.parseInt(parts[0].trim()),  // nrMatricol
+                Integer.parseInt(parts[1].trim()),  // formatie
+                parts[2].trim(),                    // nume
+                parts[3].trim(),                    // prenume
+                Boolean.parseBoolean(parts[4].trim()) // Prezenta
+        );
     }
 
     void VerificarePrezenta(String numedeCautat)
     {
-       if(Prezent==true && this.nume.equalsIgnoreCase(numedeCautat)) System.out.println("Studentul cu numele: " + nume + " " + "este prezent!");
+       if(Prezent && this.nume.equalsIgnoreCase(numedeCautat)) System.out.println("Studentul cu numele: " + nume + " " + "este prezent!");
        else System.out.println("Numele nu a fost gasit sau studentul cu numele: " + " " + numedeCautat + " este absent!");
 
     }
 
     @Override
     public int compareTo(Student other) {
+      //Am implementat Integer.compare pentru ca java poate pune in cache un integer intre -127 si 127 iar noi folosim si numere precum 900
+        int groupCompare = Integer.compare(this.formatie, other.formatie);
+        if (groupCompare != 0) return groupCompare;
 
-        if (this.formatie != other.formatie) {
-            return Integer.compare(this.formatie, other.formatie);
-        }
-
-        if (!this.nume.equals(other.nume)) {
-            return this.nume.compareTo(other.nume);
-        }
+        int numeCompare = this.nume.compareTo(other.nume);
+        if (numeCompare != 0) return numeCompare;
 
         return this.prenume.compareTo(other.prenume);
+
+
     }
     String getNume()
     {
