@@ -16,6 +16,13 @@ public class Main
         Student s=new Student(333,231,"Popescu","Marcel",true);
         Student s1=new Student(393,211,"Ioan","Arbore",false);
         Student s2=new Student(323,221,"Travolta","John",true);
+        /*
+        Calc c1= new Calc(6).Add(5).Mul(0).Add(5).Div(5);
+        Calc c2=new Calc2(9).Toate(5);
+        System.out.println(c1.x);
+        System.out.println(c2.x);
+        */
+
 
         ArrayList<Student> slista=new ArrayList<>();
         slista.add(s);
@@ -39,14 +46,12 @@ public class Main
             System.out.println(x);
         }
         System.out.println("   !!!Sfarsit prima lista din program!!!");
-      //Am scos prezenta ca e destul de annoying, cere input mereu de la tastatura.
-      /*  System.out.println("Prezenta: ");
-        for(Student x:slista)
-        {
-            String numeCautat=sc.nextLine();
-            x.VerificarePrezenta(numeCautat);
-        }
-*/
+      //Am modificat prezenta dupa structura pusa pe classroom
+       System.out.println("Prezenta: ");
+         System.out.println("Verificam daca studentul:" + s2.nume + " este prezent...");
+         if(s2.VerificarePrezenta(slista))System.out.println("Este prezent!");
+         else System.out.println("Nu este prezent!");
+
         ArrayList<Student> sflista=new ArrayList<>();
         try {
             Scanner scf=new Scanner(new File("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Input"));

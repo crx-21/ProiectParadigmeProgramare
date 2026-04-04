@@ -1,9 +1,16 @@
+import java.util.ArrayList;
+
 public class Student implements Comparable<Student> {
     Integer nrMatricol;
     Integer formatie;
     String nume;
     String prenume;
     boolean Prezent;
+
+    Student()
+    {
+
+    }
 
     Student(Integer nrMatricol, Integer formatie, String nume, String prenume,boolean Prezent)
     {
@@ -31,10 +38,28 @@ public class Student implements Comparable<Student> {
         );
     }
 
-    void VerificarePrezenta(String numedeCautat)
+    boolean VerificarePrezenta(ArrayList <Student> listaPrezenta)
     {
-       if(Prezent && this.nume.equalsIgnoreCase(numedeCautat)) System.out.println("Studentul cu numele: " + nume + " " + "este prezent!");
-       else System.out.println("Numele nu a fost gasit sau studentul cu numele: " + " " + numedeCautat + " este absent!");
+        boolean Verificare=false;
+       for(Integer i=0;i<listaPrezenta.size();i++) {
+           if (nume.equalsIgnoreCase(listaPrezenta.get(i).nume))
+           {
+               Verificare=true;
+               break;
+           }
+           else
+           {
+               Verificare=false;
+           }
+       }
+       if(Verificare==true) //Am folosit aceasta variabila pentru a da bypass compilatorului. El crede ca nu tot timpul se va intra in blockurile if,for,while.
+       {
+           return true;
+       }
+       else
+       {
+           return false;
+       }
 
     }
 
