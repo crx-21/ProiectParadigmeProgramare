@@ -1,8 +1,9 @@
 import java.io.FileWriter;
 import java.io.*;
+import java.util.ArrayList;
 
-public class StudentCuNota extends Student {
- int Nota;
+public final class StudentCuNota extends Student {
+ final int Nota;
  StudentCuNota(Integer nrMatricol, Integer formatie, String nume, String prenume,boolean Prezent,Integer Nota)
  {
      this.nrMatricol=nrMatricol;
@@ -22,6 +23,38 @@ public class StudentCuNota extends Student {
      } catch (IOException e) {
          throw new RuntimeException(e);
      }
+ }
+
+ void FunctieTelescop()
+ {
+     getNume();
+ }
+
+ void ModificaFormatie(Integer formatienoua)
+ {
+     this.formatie=formatienoua;
+ }
+
+ ArrayList<ArrayList<Student>> AranjareLista(ArrayList<Student> student)
+ {
+     ArrayList<Student> lista1=new ArrayList<>();
+     ArrayList<Student> lista2=new ArrayList<>();
+
+         for(Student x : student)
+         {
+             if(x.formatie == 911)
+             {
+                 lista1.add(x);
+             }
+             else
+             {
+                 lista2.add(x);
+             }
+     }
+     ArrayList<ArrayList<Student>> result = new ArrayList<>();
+     result.add(lista1);
+     result.add(lista2);
+     return result;
  }
 
 }

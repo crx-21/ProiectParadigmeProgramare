@@ -63,6 +63,7 @@ public class Main
                 if (linie.contains("mere")) System.out.println("Am gasit mere!");
 
                 Student student = Student.ParsareDate(linie); // ParsareDate
+
                 sflista.add(student);
                 StudentiMatricol.put(student.getNume(), student.nrMatricol);
             }
@@ -109,5 +110,16 @@ public class Main
         } catch (IOException e) {
             System.out.println("Fisierul nu a fost gasit: " + e.getMessage());
         }
+
+        StudentCuNota sortare = new StudentCuNota(0, 0, "", "", false, 0);
+        ArrayList<ArrayList<Student>> formatiiSortate = sortare.AranjareLista(sflista);
+
+        System.out.println("   !!!Lista formatia 911!!!");
+        for(Student st : formatiiSortate.get(0))
+            System.out.println(st);
+
+        System.out.println("   !!!Lista restul formatiilor!!!");
+        for(Student st : formatiiSortate.get(1))
+            System.out.println(st);
     }
 }
