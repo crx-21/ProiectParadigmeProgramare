@@ -110,7 +110,7 @@ public class Main
         } catch (IOException e) {
             System.out.println("Fisierul nu a fost gasit: " + e.getMessage());
         }
-
+        //De facut ca sortarea sa fie facuta in liste de dimensiuni egale.
         StudentCuNota sortare = new StudentCuNota(0, 0, "", "", false, 0);
         ArrayList<ArrayList<Student>> formatiiSortate = sortare.AranjareLista(sflista);
 
@@ -118,8 +118,12 @@ public class Main
         for(Student st : formatiiSortate.get(0))
             System.out.println(st);
 
-        System.out.println("   !!!Lista restul formatiilor!!!");
+        System.out.println("   !!!Lista formatia 912!!!");
         for(Student st : formatiiSortate.get(1))
+            System.out.println(st);
+
+        System.out.println("   !!!Lista formatia 913!!!");
+        for(Student st : formatiiSortate.get(2))
             System.out.println(st);
     }
 }

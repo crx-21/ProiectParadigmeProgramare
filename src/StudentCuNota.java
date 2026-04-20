@@ -39,21 +39,26 @@ public final class StudentCuNota extends Student {
  {
      ArrayList<Student> lista1=new ArrayList<>();
      ArrayList<Student> lista2=new ArrayList<>();
-
+     ArrayList<Student> lista3=new ArrayList<>();
          for(Student x : student)
          {
              if(x.formatie == 911)
              {
                  lista1.add(x);
              }
-             else
+             else if(x.formatie == 912)
              {
                  lista2.add(x);
+             }
+             else
+             {
+                 lista3.add(x);
              }
      }
      ArrayList<ArrayList<Student>> result = new ArrayList<>();
      result.add(lista1);
      result.add(lista2);
+     result.add(lista3);
      return result;
  }
 
