@@ -1,11 +1,14 @@
 package org.example;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.util.stream.Collectors;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -251,5 +254,25 @@ public class Main
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+       List<String> StudentiCu10=listaStudentiNote.stream()
+               .filter(snota->snota.Nota > 9)
+               .map(snota->snota.prenume)
+               .collect(Collectors.toList());
+        System.out.println("Studenti cu nota 10: " + StudentiCu10);
+        List<String> StudentiCu5=listaStudentiNote.stream()
+                .filter(snota->snota.Nota < 5)
+                .map(snota->snota.prenume)
+                .collect(Collectors.toList());
+        System.out.println("Studenti cu note sub 5: " + StudentiCu5);
+        List<StudentCuNota> listaActualizata = listaStudentiNote.stream()
+                .map(snote -> {
+                    if (snote.Nota < 4) snote.Nota = 4;
+                    return snote;
+                })
+                .collect(Collectors.toList());
+        System.out.println("Studentii cu 4 actualizati: " + listaActualizata);
+        //De facut cu reduce suma de note + media
+        Integer sumaNote=listaStudentiNote.stream().reduce(0,Integer::sumaNote)
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 import java.io.FileWriter;
 import java.io.*;
+import java.util.ArrayList;
 
 public class StudentCuNota extends Student {
     int Nota;
@@ -30,5 +31,7 @@ public class StudentCuNota extends Student {
         getNume();
     }
 
-
+    public int getNota() {
+        return Nota;
+    }
 }
