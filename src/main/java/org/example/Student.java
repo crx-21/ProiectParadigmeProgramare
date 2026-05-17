@@ -2,26 +2,43 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class Student implements Comparable<Student> {
-    Integer nrMatricol;
-    Integer formatie;
-    String nume;
-    String prenume;
-    boolean Prezent;
+public class Student extends StudentIdentification implements Comparable<Student>  {
+    private Integer nrMatricol;
+    private Integer formatie;
+    private String nume;
+    private String prenume;
+    private boolean prezent;
+
+    @Override
+    public void IdentificareStudent()
+    {
+    System.out.println("Sunt Student fara nota!");
+    }
 
    public Student()
     {
 
     }
 
-   public Student(Integer nrMatricol, Integer formatie, String nume, String prenume,boolean Prezent)
+    public Student(Integer nrMatricol, Integer formatie, String nume, String prenume, boolean prezent)
     {
         this.nrMatricol=nrMatricol;
         this.formatie=formatie;
         this.nume=nume;
         this.prenume=prenume;
-        this.Prezent=Prezent;
+        this.prezent=prezent;
     }
+
+    public Integer getNrMatricol() { return nrMatricol; }
+    public void setNrMatricol(Integer nrMatricol) { this.nrMatricol = nrMatricol; }
+    public Integer getFormatie() { return formatie; }
+    public void setFormatie(Integer formatie) { this.formatie = formatie; }
+    public String getNume() { return nume; }
+    public void setNume(String nume) { this.nume = nume; }
+    public String getPrenume() { return prenume; }
+    public void setPrenume(String prenume) { this.prenume = prenume; }
+    public boolean isPrezent() { return prezent; }
+    public void setPrezent(boolean prezent) { this.prezent = prezent; }
     @Override
     public String toString()
     {
@@ -78,16 +95,5 @@ public class Student implements Comparable<Student> {
 
 
     }
-    String getNume()
-    {
-        return this.nume;
-    }
-    String getPrenume()
-    {
-        return this.prenume;
-    }
-    Integer getFormatie()
-    {
-        return this.formatie;
-    }
+
 }

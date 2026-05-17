@@ -14,18 +14,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 
-//Implementate: Lab4 Prima parte: Citim nume si dam numere asociate numelor. Citim fisier in hashmap. Lab3 Tema:sortare in functie de grupa si dupa nume!!!, HashMap, TreeMap care trebuiau, Merge ParsareDate acum, nu mai am randuri multe goale din cauza scannerului.
 
-//Mai trebuie implementate: Generam metoda de .equals si hashcode
 
 public class Main
 {
     public static void main(String[] args)
     {
         Scanner sc=new Scanner(System.in);
-        Student s=new Student(333,231,"Popescu","Marcel",true);
-        Student s1=new Student(393,211,"Ioan","Arbore",false);
-        Student s2=new Student(323,221,"Travolta","John",true);
+        Student s=(Student)StudentFactory.createStudent("FARA_NOTA", 333,231,"Popescu","Marcel",true, null);
+        Student s1=(Student)StudentFactory.createStudent("FARA_NOTA", 393,211,"Ioan","Arbore",false, null);
+        Student s2=(Student)StudentFactory.createStudent("FARA_NOTA", 323,221,"Travolta","John",true, null);
         /*
         Calc c1= new Calc(6).Add(5).Mul(0).Add(5).Div(5);
         Calc c2=new Calc2(9).Toate(5);
@@ -58,7 +56,7 @@ public class Main
         System.out.println("   !!!Sfarsit prima lista din program!!!");
         //Am modificat prezenta dupa structura pusa pe classroom
         System.out.println("Prezenta: ");
-        System.out.println("Verificam daca studentul:" + s2.nume + " este prezent...");
+        System.out.println("Verificam daca studentul:" + s2.getNume() + " este prezent...");
         if(s2.VerificarePrezenta(slista))System.out.println("Este prezent!");
         else System.out.println("Nu este prezent!");
 
@@ -74,7 +72,7 @@ public class Main
 
                 Student student = Student.ParsareDate(linie); // ParsareDate
                 sflista.add(student);
-                StudentiMatricol.put(student.getNume(), student.nrMatricol);
+                StudentiMatricol.put(student.getNume(), student.getNrMatricol());
             }
             Collections.sort(sflista);
             for(Student studenti:sflista) {
@@ -121,16 +119,16 @@ public class Main
         }
         ArrayList<StudentCuNota> listaStudentiNote = new ArrayList<>();
 
-        listaStudentiNote.add(new StudentCuNota(101, 231, "Popescu", "Andrei", true, 9));
-        listaStudentiNote.add(new StudentCuNota(102, 231, "Ionescu", "Maria", true, 8));
-        listaStudentiNote.add(new StudentCuNota(103, 231, "Dumitrescu", "Alexandru", false, 5));
-        listaStudentiNote.add(new StudentCuNota(104, 232, "Popa", "Elena", true, 10));
-        listaStudentiNote.add(new StudentCuNota(105, 232, "Stan", "Mihai", true, 7));
-        listaStudentiNote.add(new StudentCuNota(106, 232, "Gheorghe", "Ana", false, 4));
-        listaStudentiNote.add(new StudentCuNota(107, 233, "Constantin", "Bogdan", true, 6));
-        listaStudentiNote.add(new StudentCuNota(108, 233, "Marin", "Ioana", true, 9));
-        listaStudentiNote.add(new StudentCuNota(109, 233, "Vasile", "Cristian", false, 3));
-        listaStudentiNote.add(new StudentCuNota(110, 234, "Dima", "Raluca", true, 10));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 101, 231, "Popescu", "Andrei", true, 9));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 102, 231, "Ionescu", "Maria", true, 8));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 103, 231, "Dumitrescu", "Alexandru", false, 5));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 104, 232, "Popa", "Elena", true, 10));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 105, 232, "Stan", "Mihai", true, 7));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 106, 232, "Gheorghe", "Ana", false, 4));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 107, 233, "Constantin", "Bogdan", true, 6));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 108, 233, "Marin", "Ioana", true, 9));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 109, 233, "Vasile", "Cristian", false, 3));
+        listaStudentiNote.add((StudentCuNota)StudentFactory.createStudent("CU_NOTA", 110, 234, "Dima", "Raluca", true, 10));
         //Excel Implementation
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Student Data");
@@ -139,9 +137,9 @@ public class Main
         Integer it=2; String Afirmatie;
         for(StudentCuNota studenti:listaStudentiNote)
         {
-            if(studenti.Prezent) Afirmatie="Da";
+            if(studenti.isPrezent()) Afirmatie="Da";
             else Afirmatie="Nu";
-            data.put(it.toString(),new Object[]{studenti.nrMatricol,studenti.formatie,studenti.nume,studenti.prenume,Afirmatie,studenti.Nota});
+            data.put(it.toString(),new Object[]{studenti.getNrMatricol(),studenti.getFormatie(),studenti.getNume(),studenti.getPrenume(),Afirmatie,studenti.getNota()});
             it++;
 
         }
@@ -256,23 +254,36 @@ public class Main
         }
 
        List<String> StudentiCu10=listaStudentiNote.stream()
-               .filter(snota->snota.Nota > 9)
-               .map(snota->snota.prenume)
+               .filter(snota->snota.getNota() > 9)
+               .map(snota->snota.getPrenume())
                .collect(Collectors.toList());
         System.out.println("Studenti cu nota 10: " + StudentiCu10);
         List<String> StudentiCu5=listaStudentiNote.stream()
-                .filter(snota->snota.Nota < 5)
-                .map(snota->snota.prenume)
+                .filter(snota->snota.getNota() < 5)
+                .map(snota->snota.getPrenume())
                 .collect(Collectors.toList());
         System.out.println("Studenti cu note sub 5: " + StudentiCu5);
         List<StudentCuNota> listaActualizata = listaStudentiNote.stream()
                 .map(snote -> {
-                    if (snote.Nota < 4) snote.Nota = 4;
+                    if (snote.getNota() < 4) snote.setNota(4);
                     return snote;
                 })
                 .collect(Collectors.toList());
         System.out.println("Studentii cu 4 actualizati: " + listaActualizata);
         //De facut cu reduce suma de note + media
-        Integer sumaNote=listaStudentiNote.stream().reduce(0,Integer::sumaNote)
+        int sumaNote = listaStudentiNote.stream()
+                .mapToInt(snota -> snota.getNota())
+                .reduce(0, Integer::sum);
+        System.out.println("Suma notelor: " + sumaNote);
+
+// Media notelor
+        double mediaNote = listaStudentiNote.stream()
+                .mapToInt(snota -> snota.getNota())
+                .average()
+                .orElse(0.0);
+        System.out.println("Media notelor: " + mediaNote);
+        StudentCuNota sgrade=(StudentCuNota)StudentFactory.createStudent("CU_NOTA", 555,3,"Totu","Cristian",true,9);
+        s.IdentificareStudent();
+        sgrade.IdentificareStudent();
     }
 }

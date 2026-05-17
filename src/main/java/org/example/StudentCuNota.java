@@ -4,34 +4,35 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class StudentCuNota extends Student {
-    int Nota;
-    StudentCuNota(Integer nrMatricol, Integer formatie, String nume, String prenume,boolean Prezent,Integer Nota)
-    {
-        this.nrMatricol=nrMatricol;
-        this.formatie=formatie;
-        this.nume=nume;
-        this.prenume=prenume;
-        this.Prezent=Prezent;
-        this.Nota=Nota;
+    private int nota;
+
+    public StudentCuNota(Integer nrMatricol, Integer formatie, String nume, String prenume, boolean prezent, Integer nota) {
+        super(nrMatricol, formatie, nume, prenume, prezent);
+        this.nota = nota;
     }
 
-    void ScriereFisier()
-    {
-        try
-        {
-            FileWriter output=new FileWriter("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Output2");
+    @Override
+    public void IdentificareStudent() {
+        System.out.println("Sunt student cu nota!");
+    }
 
+    void ScriereFisier() {
+        try {
+            FileWriter output = new FileWriter("C:\\ULBS\\Paradigme de Programare\\Proiect2\\src\\Output2");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    void FunctieTelescop()
-    {
+    void FunctieTelescop() {
         getNume();
     }
 
     public int getNota() {
-        return Nota;
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
     }
 }
