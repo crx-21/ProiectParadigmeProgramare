@@ -1,3 +1,5 @@
+import org.example.Student;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -10,6 +12,19 @@ import java.io.FileWriter;
 
 public class Main
 {
+    private static final Object printLock = new Object();
+
+
+    public static void Afisare(List<Student> Lista)
+    {
+        synchronized (printLock)
+        {
+            for (Student stu : Lista)
+            {
+                System.out.println(stu);
+            }
+        }
+    }
     public static void main(String[] args)
     {
         Scanner sc=new Scanner(System.in);
@@ -125,5 +140,42 @@ public class Main
         System.out.println("   !!!Lista formatia 913!!!");
         for(Student st : formatiiSortate.get(2))
             System.out.println(st);
+
+        ArrayList<Student> sflistaParalel = new ArrayList<>();
+        sflistaParalel.add(s);
+        sflistaParalel.add(s1);
+        sflistaParalel.add(s2);
+
+
+        Thread PrimaLista = new Thread(() ->
+        {
+            synchronized (printLock) {
+                System.out.println("Sunt primul thread: ");
+            }
+            Afisare(sflistaParalel);
+        });
+
+        Thread DouaLista = new Thread(() ->
+        {
+            synchronized (printLock) {
+                System.out.println("Sunt al doilea thread: ");
+            }
+            Afisare(sflista);
+        });
+
+        PrimaLista.start();
+        DouaLista.start();
+
+        try {
+            PrimaLista.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            DouaLista.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
