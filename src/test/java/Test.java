@@ -1,4 +1,4 @@
-/*import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 import org.example.Calc;
 import org.example.Calc2;
 import org.example.Student;
@@ -29,4 +29,4 @@ class CalcTest {
 
     }
 
-} */
+}

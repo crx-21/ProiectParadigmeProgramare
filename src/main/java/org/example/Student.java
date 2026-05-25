@@ -1,8 +1,16 @@
 package org.example;
 
-import java.util.ArrayList;
+import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument;
 
-public class Student extends StudentIdentification implements Comparable<Student>  {
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+public class Student extends StudentIdentification implements Comparable<Student>,  StudentDecorator  {
     private Integer nrMatricol;
     private Integer formatie;
     private String nume;
@@ -96,4 +104,14 @@ public class Student extends StudentIdentification implements Comparable<Student
 
     }
 
+    @Override
+    public void ScrieDecorator(FileWriter fila) {
+        try{
+            String template="NUME,PRENUME,FORMATIE";
+            byte[] strToBytes = template.getBytes();
+            fila.write(Arrays.toString(strToBytes));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
